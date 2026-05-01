@@ -1,26 +1,182 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-@theme inline {
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
 }
 
-@media (prefers-color-scheme: dark) {
+:root {
+  color-scheme: light;
+
+  /* ------------------------------------------------------------
+   * Base semantic colors
+   * Figma Mode / shadcn style tokens
+   * ------------------------------------------------------------ */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --primary: #171717;
+  --primary-foreground: #fafafa;
+  --border: #e5e5e5;
+  --ring: #a1a1a1;
+
+  /* Figma base aliases seen in Dev Mode */
+  --base-background: var(--background);
+  --base-foreground: var(--foreground);
+
+  /* ------------------------------------------------------------
+   * Spacing
+   * ------------------------------------------------------------ */
+  --spacing-0: 0px;
+  --spacing-1: 0.25rem;   /* 4px */
+  --spacing-2: 0.5rem;    /* 8px */
+  --spacing-3: 0.75rem;   /* 12px */
+  --spacing-3-5: 0.875rem;/* 14px */
+  --spacing-4: 1rem;      /* 16px */
+  --spacing-5: 1.25rem;   /* 20px */
+  --spacing-6: 1.5rem;    /* 24px */
+  --spacing-8: 2rem;      /* 32px */
+  --spacing-10: 2.5rem;   /* 40px */
+  --spacing-12: 3rem;     /* 48px */
+  --spacing-16: 4rem;     /* 64px */
+  --spacing-20: 5rem;     /* 80px */
+  --spacing-24: 6rem;     /* 96px */
+
+  /* ------------------------------------------------------------
+   * Container / max width
+   * ------------------------------------------------------------ */
+  --container-3xs: 16rem; /* 256px */
+  --container-2xs: 18rem; /* 288px */
+  --container-xs: 20rem;  /* 320px */
+  --container-sm: 24rem;  /* 384px */
+  --container-md: 28rem;  /* 448px */
+  --container-lg: 32rem;  /* 512px */
+  --container-xl: 36rem;  /* 576px */
+  --container-2xl: 42rem; /* 672px */
+  --container-3xl: 48rem; /* 768px */
+  --container-4xl: 56rem; /* 896px */
+  --container-5xl: 64rem; /* 1024px */
+  --container-6xl: 72rem; /* 1152px */
+  --container-7xl: 80rem; /* 1280px */
+
+  --container-padding-x-mobile: var(--spacing-4); /* 16px */
+  --container-padding-x-desktop: var(--spacing-6); /* 24px */
+  --container-padding-x: var(--container-padding-x-mobile);
+
+  --site-container-max: var(--container-7xl);
+
+  /* Optional Figma Dev Mode aliases. Use only when copying/checking Dev Mode output. */
+  --max-width-max-w-2xl: var(--container-2xl);
+  --max-width-max-w-3xl: var(--container-3xl);
+  --max-width-max-w-4xl: var(--container-4xl);
+  --max-width-max-w-5xl: var(--container-5xl);
+  --max-width-max-w-6xl: var(--container-6xl);
+  --max-width-max-w-7xl: var(--container-7xl);
+
+  /* ------------------------------------------------------------
+   * Section
+   * ------------------------------------------------------------ */
+  --section-padding-y-mobile: var(--spacing-16);  /* 64px */
+  --section-padding-y-desktop: var(--spacing-24); /* 96px */
+  --section-padding-y: var(--section-padding-y-mobile);
+
+  --nav-padding-y-mobile: var(--spacing-3-5); /* 14px */
+  --nav-padding-y-desktop: var(--spacing-4);  /* 16px */
+  --nav-padding-y: var(--nav-padding-y-mobile);
+
+  /* ------------------------------------------------------------
+   * Radius
+   * ------------------------------------------------------------ */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+@media (min-width: 64rem) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --container-padding-x: var(--container-padding-x-desktop);
+    --section-padding-y: var(--section-padding-y-desktop);
+    --nav-padding-y: var(--nav-padding-y-desktop);
+  }
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --muted: #171717;
+  --muted-foreground: #a1a1a1;
+  --primary: #fafafa;
+  --primary-foreground: #171717;
+  --border: #262626;
+  --ring: #737373;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
+  min-height: 100vh;
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  text-rendering: geometricPrecision;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Minimal global utilities for non-Tailwind usage / inspection */
+.site-container {
+  width: 100%;
+  max-width: var(--site-container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+.section-shell {
+  padding-block: var(--section-padding-y);
 }
